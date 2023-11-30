@@ -9,12 +9,12 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
 
-
+email_count = 20
 sender_email = ""
 to_email = ""
 subject = "Creation Story from the Book of Genesis"
 body_text = f"""
-Dear {to_email},
+Dear {to_email.split('@')[0]},
 
 I hope this email finds you well. I wanted to share with you a passage from the Book of Genesis, specifically from Chapter 1, which describes the creation story according to the Bible:
 
@@ -107,11 +107,12 @@ def send_email(service, sender_email, to_email, subject, body_text):
 
 def main():
     global subject
+    global email_count
 
     service = service_login()
     if service is not None:
         i = 0
-        while i < 2:
+        while i < email_count:
             i += 1
             altered_subject = subject + f" {i}"
             send_email(service, sender_email, to_email, altered_subject, body_text)
